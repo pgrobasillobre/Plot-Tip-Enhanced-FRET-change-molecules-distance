@@ -2,7 +2,7 @@
 
 ## Objective
 
-The goal of this repository is to reproduce **Figure 1d** from the paper:
+The goal of this repository is to reproduce **Figure 2b** from the paper:
 **Kong, FF., Tian, XJ., Zhang, Y. et al.**
 **Wavelike electronic energy transfer in donor–acceptor molecular systems through quantum coherence**
 *Nat. Nanotechnol. 17, 729–736 (2022)*
@@ -21,13 +21,13 @@ Below is a schematic of the donor–acceptor molecules:
 </p>
 
 
-The simulation models **tip-mediated fluorescence spectra** where a silver tip is positioned near the donor molecule at three locations (A, B, and C). The donor and acceptor are separated by a metal-metal distance of **2.21 nm** (measured between the central Pt and Zn atoms of the phthalocyanines), while the tip is located **0.5 nm** away from the nearest donor atom.
+The simulation models **tip-mediated fluorescence spectra** where a silver tip is located on top of the donor, more specifically at **0.5 nm** away from the platinum atom in a vertical line. The donor and acceptor are separated by a varying metal-metal distance measured between the central Pt and Zn atoms of the phthalocyanines, in agreement with the experimental reference.
 
 <p align="center">
   <img src="./_static/tip-positions.png" alt="Molecule Labels" width="800"/>
 </p>
 
-Simulated spectra for each tip position are compared to experimental data. **All spectra are normalized independently:** for the simulation, the three simulated spectra are normalized with respect to the **maximum simulated fluorescence intensity across all tip positions**; similarly, the three experimental spectra are normalized with respect to the **maximum experimental fluorescence intensity across all tip positions**.
+Simulated fluorescence intensities for the donor and acceptor molecules are plotted against the intermetallic distance of the phthalocyanines and compared to experimental data. **All spectra are normalized independently:** for the simulation, all the computed intensities for the donor and acceptor are normalized with respect to the **maximum simulated fluorescence intensity across all distances**; similarly, the experimental intensities are normalized with respect to the **maximum experimental fluorescence intensity across all distances**.
 
 ---
 
@@ -58,28 +58,32 @@ An example simulation is provided in the `data/simulation/` directory. Ensure th
 ```
 simulation/
 ├── tddft/
-│   ├── state-1/
-│   │   └── pos-4/5/6/
-│   └── state-2/
-│       └── pos-4/5/6/
+│   ├── pt-pc
+│   │   └── state-1/2
+│   └── zn-pc_d-1.72
+│       └── state-1/2
 ├── fret/
     ├── D_state-1_to_A_state-1/
+        └── d-1.72
     ├── D_state-1_to_A_state-2/
+        └── d-1.72
     ├── D_state-2_to_A_state-1/
+        └── d-1.72
     └── D_state-2_to_A_state-2/
+        └── d-1.72
 ```
 
 ### Run the script:
 
 ```bash
-python3 Plot-Tip-Enhanced-FRET-change-tip-position
+python3 Plot-Tip-Enhanced-FRET-change-molecules-distance
 ```
 
 ---
 
 ## Output
 
-The script generates the following figure comparing experimental and simulated spectra for different tip positions:
+The script generates the following figure comparing experimental and simulated fluorescence intensities for different intermetallic distance of the phthalocyanines:
 
 <p align="center">
   <img src="./_static/fret_tip-position_experiment_vs_simulation.png" alt="Molecule Labels" width="600"/>
