@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 
-from classes import donor, aceptor, eet
+from classes import donor, acceptor, eet
 # -------------------------------------------------------------------------------------
 def eta_EET(n_dist,d_state,a_state,EET,D,A):
     #
