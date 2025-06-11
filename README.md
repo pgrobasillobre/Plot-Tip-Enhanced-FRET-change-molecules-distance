@@ -14,18 +14,15 @@ The goal of this repository is to reproduce **Figure 2b** from the paper:
 
 This code reads **fluorescence descriptors**—including the absorption coefficient, radiative decay rate, and non-radiative decay rate—computed at the **Time-Dependent Density Functional Theory (TDDFT)** level. It also reads **electronic energy transfer rates** between two phthalocyanine molecules, calculated using the [**FretLab**](https://github.com/pgrobasillobre/FretLab) code.
 
-Below is a schematic of the donor–acceptor molecules:
+Below is a schematic of the donor–acceptor molecules at a given distance **d** calculated with respect to the two phtalocyanine centers:
 
 <p align="center">
-  <img src="./_static/molecules_labels.png" alt="Molecule Labels" width="400"/>
+  <img src="./_static/molecules.png" alt="Molecule Labels" width="400"/>
 </p>
 
 
-The simulation models **tip-mediated fluorescence spectra** where a silver tip is located on top of the donor, more specifically at **0.5 nm** away from the platinum atom in a vertical line. The donor and acceptor are separated by a varying metal-metal distance measured between the central Pt and Zn atoms of the phthalocyanines, in agreement with the experimental reference.
+The simulation models **tip-mediated fluorescence spectra** where a silver tip is located on top of the donor, more specifically at **0.5 nm** away from the platinum atom placed vertically. The donor and acceptor are separated by a varying metal-metal distance measured between the central Pt and Zn atoms of the phthalocyanines, in agreement with the experimental reference.
 
-<p align="center">
-  <img src="./_static/tip-positions.png" alt="Molecule Labels" width="800"/>
-</p>
 
 Simulated fluorescence intensities for the donor and acceptor molecules are plotted against the intermetallic distance of the phthalocyanines and compared to experimental data. **All spectra are normalized independently:** for the simulation, all the computed intensities for the donor and acceptor are normalized with respect to the **maximum simulated fluorescence intensity across all distances**; similarly, the experimental intensities are normalized with respect to the **maximum experimental fluorescence intensity across all distances**.
 
@@ -59,18 +56,18 @@ An example simulation is provided in the `data/simulation/` directory. Ensure th
 simulation/
 ├── tddft/
 │   ├── pt-pc
-│   │   └── state-1/2
+│   │   └── state-1/2/*log
 │   └── zn-pc_d-1.72
-│       └── state-1/2
+│       └── state-1/2/*log
 ├── fret/
     ├── D_state-1_to_A_state-1/
-        └── d-1.72
+        └── d-1.72/*log
     ├── D_state-1_to_A_state-2/
-        └── d-1.72
+        └── d-1.72/*log
     ├── D_state-2_to_A_state-1/
-        └── d-1.72
+        └── d-1.72/*log
     └── D_state-2_to_A_state-2/
-        └── d-1.72
+        └── d-1.72/*log
 ```
 
 ### Run the script:
