@@ -33,16 +33,19 @@ def plot_fluor_intensities(donor,acceptor,n_dist,distances):
     #
     x_points = np.linspace(min_energy, max_energy, grid_points)
     #
-    fontsize_tics   = 20
-    fontsize_labels = 22
+    fontsize_tics   = 22
+    fontsize_labels = 24
     fontsize_titles = 28
+    #
+    acceptor_label = 'Zn-Pc (Acceptor)'
+    donor_label = 'Pt-Pc (Donor)'
     #
     xlabel = 'Energy (eV)'
     ylabel = 'Fluorescence Intensity (arb. units)'
     #
     # Adjust figure and subplots layout    
     fig, ax = plt.subplots(1, 2, figsize=(12, 8))
-    plt.subplots_adjust(left=0.12, hspace=0.4, wspace=0.5, top=0.9, bottom=0.1)
+    plt.subplots_adjust(left=0.12, hspace=0.4, wspace=0.4, top=0.86, bottom=0.1)
     #
     #
     for axes in ax.flat:
@@ -62,21 +65,24 @@ def plot_fluor_intensities(donor,acceptor,n_dist,distances):
     plt.rcParams['mathtext.sf'] = 'Times New Roman'
     plt.rcParams['mathtext.default'] = 'regular'
 
+
     # Add column titles
-    fig.text(0.283, 0.96, 'Experiment', ha='center', va='center', fontsize=fontsize_titles, fontweight='bold', fontname='Times New Roman')
-    fig.text(0.730, 0.96, 'Simulation', ha='center', va='center', fontsize=fontsize_titles, fontweight='bold', fontname='Times New Roman')
+    fig.text(0.283, 0.93, 'Experiment', ha='center', va='center', fontsize=fontsize_titles, fontweight='bold', fontname='Times New Roman')
+    fig.text(0.745, 0.93, 'Simulation\n(Tip-1)', ha='center', va='center', fontsize=fontsize_titles, fontweight='bold', fontname='Times New Roman')
 
     # Get the directory of this script to access the experimental data files
     base_dir = os.path.dirname(__file__)
     exp_files = [
         os.path.join(base_dir, "../data/experiment/exp-acceptor.csv"),
         os.path.join(base_dir, "../data/experiment/exp-donor.csv"),
+        os.path.join(base_dir, "../data/experiment/fret-fitting.csv")
     ]
 
     # Load experimental data and find global max
     exp_data = []
     exp_global_max = 0
-    for file in exp_files:
+
+    for file in exp_files[:2]:
         try:
             df = pd.read_csv(file, delim_whitespace=True, header=None)
             energy = df.iloc[:,0].values
@@ -85,13 +91,22 @@ def plot_fluor_intensities(donor,acceptor,n_dist,distances):
             if np.max(intensity) > exp_global_max:
                 exp_global_max = np.max(intensity)
         except Exception as e:
-            error("Could not load {file}: {e}")
-            
+            error(f"Could not load {file}: {e}")
+
+    # Load the third file (fret-fitting curve) for plotting only
+    try:
+        df = pd.read_csv(exp_files[2], delim_whitespace=True, header=None)
+        energy = df.iloc[:,0].values
+        intensity = df.iloc[:,1].values
+        exp_data.append((energy, intensity))
+    except Exception as e:
+        error(f"Could not load {exp_files[2]}: {e}")
+
 
     # Plot
-    #ax[0].set_title('Experiment',fontsize=fontsize_titles)
-    ax[0].plot(exp_data[0][0],exp_data[0][1], color='red', marker='o', label = 'Zn-Pc (Acceptor)')
-    ax[0].plot(exp_data[1][0],exp_data[1][1], color='black', marker='o', label = 'Pt-Pc (Donor)')
+    ax[0].plot(exp_data[0][0],exp_data[0][1], color='red', marker='o', linestyle='None', label = acceptor_label)
+    ax[0].plot(exp_data[1][0],exp_data[1][1], color='black', marker='o', linestyle='None', label = donor_label)
+    ax[0].plot(exp_data[2][0], exp_data[2][1], color='red', linestyle='--', label='FRET fitting curve')
     ax[0].set_ylim(-0.25, 2.75)  
     ax[0].set_yticks([0.0,0.5,1.0,1.5,2.0,2.5])
     ax[0].set_xlim(1.35, 3.3)  
@@ -111,9 +126,9 @@ def plot_fluor_intensities(donor,acceptor,n_dist,distances):
         donor.fluor_int_total[n]   = donor.fluor_int_total[n]   / norm_sim
 
     # Plot
-    #ax[1].set_title('Simulation',fontsize=fontsize_titles)
-    ax[1].plot(distances_values, acceptor.fluor_int_total, color='red', marker='o', label='Zn-Pc (Acceptor)')
-    ax[1].plot(distances_values, donor.fluor_int_total, color='black', marker='o', label='Pt-Pc (Donor)')
+    ax[1].plot(distances_values, acceptor.fluor_int_total, color='red', marker='o', linestyle='None', label=acceptor_label)
+    ax[1].plot(distances_values, donor.fluor_int_total, color='black', marker='o', linestyle='None', label=donor_label)
+    ax[1].plot(exp_data[2][0], exp_data[2][1], color='red', linestyle='--', label='FRET fitting curve')
     ax[1].set_ylim(-0.25, 2.75)  
     ax[1].set_yticks([0.0,0.5,1.0,1.5,2.0,2.5])
     ax[1].set_xlim(1.35, 3.3)  
@@ -121,7 +136,9 @@ def plot_fluor_intensities(donor,acceptor,n_dist,distances):
     ax[1].set_xlabel('d (nm)', fontsize=fontsize_labels, labelpad=10.0)
     ax[1].set_ylabel('Fluorescence Intensity (arb. units)', fontsize=fontsize_labels, labelpad=20.0)
 
-
+    # Add legend
+    #ax[0].legend(loc='best', fontsize=18, frameon=False)
+    ax[1].legend(loc='best', fontsize=18, frameon=False)
    
-    plt.show()
-    #plt.savefig('/home/pablo/Desktop/plot.png')
+    #plt.show()
+    plt.savefig('fret_molecule-distance_experiment_vs_simulation.png')
