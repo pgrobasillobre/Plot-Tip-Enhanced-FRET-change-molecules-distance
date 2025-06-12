@@ -14,7 +14,7 @@ The goal of this repository is to reproduce **Figure 2b** from the paper:
 
 This code reads **fluorescence descriptors**—including the absorption coefficient, radiative decay rate, and non-radiative decay rate—computed at the **Time-Dependent Density Functional Theory (TDDFT)** level. It also reads **electronic energy transfer rates** between two phthalocyanine molecules, calculated using the [**FretLab**](https://github.com/pgrobasillobre/FretLab) code.
 
-Below is a schematic of the donor–acceptor molecules at a given distance **d** calculated with respect to the two phtalocyanine centers:
+Below is a schematic of the donor–acceptor molecules at a given distance **d** calculated with respect to the two phthalocyanine centers:
 
 <p align="center">
   <img src="./_static/molecules.png" alt="Molecule Labels" width="400"/>
@@ -80,10 +80,10 @@ python3 Plot-Tip-Enhanced-FRET-change-molecules-distance
 
 ## Output
 
-The script generates the following figure comparing experimental and simulated fluorescence intensities for different intermetallic distance of the phthalocyanines:
+The script generates the following figure comparing experimental and simulated fluorescence intensities for different intermetallic distances of the phthalocyanines:
 
 <p align="center">
-  <img src="./_static/fret_molecule-distance_experiment_vs_simulation.png" alt="Molecule Labels" width="600"/>
+  <img src="./_static/fret_molecule-distance_experiment_vs_simulation.png" alt="Molecule Labels" width="800"/>
 </p>
 
 ## License
