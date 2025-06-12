@@ -18,10 +18,11 @@ n_states_acceptor = 2
 # ===================== PROGRAM ====================== #
 #
 # -------------------- Initialize -------------------- #
+#
 # List of distances, the folders for the acceptor must be named with the format zn-pc_d-1.72
 distances_list = ['d-1.72', 'd-1.81', 'd-1.90', 'd-2.06', 'd-2.10', 'd-2.28','d-2.42', 'd-2.67', 'd-2.61','d-2.78', 'd-3.00', 'd-3.05', 'd-3.16']
 #
-# Get directory of the scirpt to extract simulation results
+# Get directory of the script to extract simulation results
 base_dir = os.path.dirname(__file__)
 results_folder = os.path.join(base_dir, 'data/simulation')
 #
@@ -81,7 +82,9 @@ for distance in distances_list:
             # This is to check we don't have RET efficiency > 100%
             eta_sum = eta_sum + eet.eta_EET[n_dist,d_state,a_state]
             #
-            if (eta_sum > 1.0): sys.exit() # Avoid sum of eta bigger than 1
+            if (eta_sum > 1.0): 
+               output.error('charge transfer efficiency higher than 100%') 
+               sys.exit() 
             #
             #
         # Fluorescence intensities
@@ -96,8 +99,6 @@ for distance in distances_list:
         acceptor.fluor_int[n_dist,d_state] = donor.abs[d_state] * eet_times_fqy_sum
         #
 
-# -----------> OK
-
     #
     # Total donor/acceptor intensity as sum of all intensities of
     # degenerated excited states for each distance
@@ -109,20 +110,6 @@ for distance in distances_list:
 #
 # -- Plot fluorescence acceptor-Donor intensities
 output.plot_fluor_intensities(donor,acceptor,len(distances_list),distances_list)
-
-
-# Print the results to plot as single points
-# Normalize maximum to experimental value of 2.2182539682539684
-
-print(acceptor.fluor_int_total)
-
-#max_acceptor = np.max(acceptor.fluor_int_total)
-#with open('intensities.csv', 'w') as out:
-#   out.write('# Distance    Acceptor    Donor\n')
-#   for n_dist, distance_str in enumerate(distances_list):
-#      distance = distance_str[2:]
-#      out.write(distance + '  ' + str((acceptor.fluor_int_total[n_dist]/max_acceptor)*2.2182539682539684) + '   ' + str((donor.fluor_int_total[n_dist]/max_acceptor)*2.2182539682539684) + '\n')
-   
 
 
 
