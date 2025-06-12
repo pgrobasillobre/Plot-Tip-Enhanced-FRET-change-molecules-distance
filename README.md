@@ -24,8 +24,7 @@ Below is a schematic of the donor–acceptor molecules at a given distance **d**
 The simulation models **tip-mediated fluorescence spectra** where a silver tip is located on top of the donor, more specifically at **0.5 nm** away from the platinum atom placed vertically. The donor and acceptor are separated by a varying metal-metal distance measured between the central Pt and Zn atoms of the phthalocyanines, in agreement with the experimental reference.
 
 
-Simulated fluorescence intensities for the donor and acceptor molecules are plotted against the intermetallic distance of the phthalocyanines and compared to experimental data. **All spectra are normalized independently:** for the simulation, all the computed intensities for the donor and acceptor are normalized with respect to the **maximum simulated fluorescence intensity across all distances**; similarly, the experimental intensities are normalized with respect to the **maximum experimental fluorescence intensity across all distances**.
-
+Simulated fluorescence intensities for the donor and acceptor molecules are plotted against the intermetallic distance of the phthalocyanines and compared to experimental data. **Simulated spectra are normalized with respect to the maximum fluorescence intensity of the experiment**.
 ---
 
 ## Data Sources
