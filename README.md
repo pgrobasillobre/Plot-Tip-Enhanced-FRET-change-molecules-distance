@@ -83,7 +83,7 @@ python3 Plot-Tip-Enhanced-FRET-change-molecules-distance
 The script generates the following figure comparing experimental and simulated fluorescence intensities for different intermetallic distance of the phthalocyanines:
 
 <p align="center">
-  <img src="./_static/fret_tip-position_experiment_vs_simulation.png" alt="Molecule Labels" width="600"/>
+  <img src="./_static/fret_molecule-distance_experiment_vs_simulation.png" alt="Molecule Labels" width="600"/>
 </p>
 
 ## License
